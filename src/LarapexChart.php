@@ -9,9 +9,9 @@ class LarapexChart
     | Chart
     |--------------------------------------------------------------------------
     |
-    | This class build the chart by passing setters to the object, it will 
-    | use the method container and scripts to generate a JSON  
-    | in blade views, it works also with Vue JS components  
+    | This class build the chart by passing setters to the object, it will
+    | use the method container and scripts to generate a JSON
+    | in blade views, it works also with Vue JS components
     |
     */
 
@@ -49,6 +49,7 @@ class LarapexChart
         $this->horizontal = json_encode(['horizontal' => false]);
         $this->colors = json_encode(config('larapex-charts.colors'));
         $this->setXAxis([]);
+        $this->setYAxis([]);
         $this->grid = json_encode(['show' => false]);
         $this->markers = json_encode(['show' => false]);
         $this->toolbar = json_encode(['show' => false]);
@@ -191,6 +192,12 @@ class LarapexChart
     public function setXAxis(array $categories) :LarapexChart
     {
         $this->xAxis = json_encode($categories);
+        return $this;
+    }
+
+    public function setYAxis(array $categories) :LarapexChart
+    {
+        $this->yAxis = json_encode($categories);
         return $this;
     }
 
@@ -406,6 +413,14 @@ class LarapexChart
     }
 
     /**
+     * @return mixed
+     */
+    public function yAxis()
+    {
+        return $this->yAxis;
+    }
+
+    /**
      * @return false|string
      */
     public function grid()
@@ -487,6 +502,9 @@ class LarapexChart
             'xaxis' => [
                 'categories' => json_decode($this->xAxis()),
             ],
+            'yaxis' => [
+                'categories' => json_decode($this->yAxis()),
+            ],
             'grid' => json_decode($this->grid()),
             'markers' => json_decode($this->markers()),
         ];
@@ -528,6 +546,9 @@ class LarapexChart
                 'align' => $this->subtitlePosition() ? $this->subtitlePosition() : '',
             ],
             'xaxis' => [
+                'categories' => json_decode($this->xAxis()),
+            ],
+            'yaxis' => [
                 'categories' => json_decode($this->xAxis()),
             ],
             'grid' => json_decode($this->grid()),

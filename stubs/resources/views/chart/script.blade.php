@@ -29,6 +29,7 @@
         xaxis: {
             categories: {!! $chart->xAxis() !!}
         },
+        yaxis: {!! $chart->yAxis() !!},
         grid: {!! $chart->grid() !!},
         markers: {!! $chart->markers() !!},
         @if($chart->stroke())
